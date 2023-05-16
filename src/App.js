@@ -4,6 +4,7 @@ import ReadContent from "./components/ReadContent";
 import Subject from "./components/Subject";
 import Control from "./components/Control";
 import CreateContent from "./components/CreateContent";
+import UpdateContent from "./components/UpdateContent";
 import "./styles.css";
 
 class App extends Component {
@@ -22,42 +23,32 @@ class App extends Component {
     };
   }
 
-  render() {
-    var _title,
-      _desc,
-      _article = null;
+  getReadContet() {
+    var i = 0;
+    while (i < this.state.contents.length) {
+      var data = this.state.contents[i];
+      if (data.id === this.state.selected_content_id) {
+        return data;
+      }
+      ++i;
+    }
+  }
+
+  getContent() {
+    var _title, _desc, _article;
     if (this.state.mode === "welcome") {
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
       _article = <ReadContent title={_title} desc={_desc} />;
     } else if (this.state.mode === "read") {
-      var i = 0;
-      while (i < this.state.contents.length) {
-        var data = this.state.contents[i];
-        if (data.id === this.state.selected_content_id) {
-          _title = data.title;
-          _desc = data.desc;
-          break;
-        }
-        ++i;
-      }
+      var _data = this.getReadContet();
+      _title = _data.title;
+      _desc = _data.desc;
       _article = <ReadContent title={_title} desc={_desc} />;
     } else if (this.state.mode === "create") {
       _article = (
         <CreateContent
           onSubmit={function (_title, _desc) {
-            // this.state.contents.push({
-            //   id: this.state.contents.length + 1,
-            //   title: _title,
-            //   desc: _desc
-            // });
-
-            // var _contents = this.state.contents.concat({
-            //   id: this.state.contents.length + 1,
-            //   title: _title,
-            //   desc: _desc
-            // });
-
             //배열 복사
             var _newContents = Array.from(this.state.contents);
             _newContents.push({
@@ -72,8 +63,36 @@ class App extends Component {
           }.bind(this)}
         />
       );
-    }
+    } else if (this.state.mode === "update") {
+      _article = (
+        <UpdateContent
+          data={this.getReadContet()}
+          onSubmit={function (_state) {
+            //배열 복사
+            var _content = Array.from(this.state.contents);
 
+            var i = 0;
+            while (i < _content.length) {
+              var data = _content[i];
+              if (data.id === _state.id) {
+                data.title = _state.title;
+                data.desc = _state.desc;
+                break;
+              }
+              ++i;
+            }
+
+            this.setState({
+              contents: _content,
+            });
+          }.bind(this)}
+        />
+      );
+    }
+    return _article;
+  }
+
+  render() {
     return (
       <div className="APP">
         <Subject
@@ -102,7 +121,7 @@ class App extends Component {
           }.bind(this)}
         />
         {/* <ReadContent title={_title} desc={_desc} /> */}
-        {_article}
+        {this.getContent()}
       </div>
     );
   }
