@@ -15,10 +15,10 @@ class App extends Component {
       subject: { title: "WEB", sub: "World Wide Web" },
       welcome: { title: "welcome", desc: "Hello, React!" },
       contents: [
-        { id: 1, title: "HTML", desc: "HTML is for information" },
+        { id: 1, title: "HTML", desc: "HTML is for information2222222" },
         { id: 2, title: "Css", desc: "Css is for design" },
-        { id: 3, title: "JavaScript", desc: "JavaScript is for interactive" }
-      ]
+        { id: 3, title: "JavaScript", desc: "JavaScript is for interactive" },
+      ],
     };
   }
 
@@ -63,11 +63,11 @@ class App extends Component {
             _newContents.push({
               id: this.state.contents.length + 1,
               title: _title,
-              desc: _desc
+              desc: _desc,
             });
 
             this.setState({
-              contents: _newContents
+              contents: _newContents,
             });
           }.bind(this)}
         />
@@ -81,7 +81,7 @@ class App extends Component {
           sub={this.state.subject.sub}
           onChangePage={function () {
             this.setState({
-              mode: "welcome"
+              mode: "welcome",
             });
           }.bind(this)}
         />
@@ -90,14 +90,14 @@ class App extends Component {
           onChangePage={function (id) {
             this.setState({
               mode: "read",
-              selected_content_id: Number(id)
+              selected_content_id: Number(id),
             });
           }.bind(this)}
         />
         <Control
           onChangeMode={function (mode) {
             this.setState({
-              mode: mode
+              mode: mode,
             });
           }.bind(this)}
         />
