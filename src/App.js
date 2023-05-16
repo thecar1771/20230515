@@ -15,7 +15,7 @@ class App extends Component {
       subject: { title: "WEB", sub: "World Wide Web" },
       welcome: { title: "welcome", desc: "Hello, React!" },
       contents: [
-        { id: 1, title: "HTML", desc: "HTML is for information2222222" },
+        { id: 1, title: "HTML", desc: "HTML is for information" },
         { id: 2, title: "Css", desc: "Css is for design" },
         { id: 3, title: "JavaScript", desc: "JavaScript is for interactive" },
       ],
