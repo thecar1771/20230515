@@ -7,7 +7,6 @@ class Toc extends Component {
     if (this.props.data === newProps.data) {
       return false;
     }
-
     return true;
   }
 
