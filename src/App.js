@@ -70,7 +70,7 @@ class App extends Component {
         <UpdateContent
           data={this.getReadContet()}
           onSubmit={function (_state) {
-            //배열  복사
+            //배열 복사
             var _content = Array.from(this.state.contents);
 
             var i = 0;
@@ -90,8 +90,6 @@ class App extends Component {
           }.bind(this)}
         />
       );
-    } else if (this.state.mode === "delete") {
-      alert(this.state.selected_content_id);
     }
 
     return _article;
