@@ -70,7 +70,7 @@ class App extends Component {
         <UpdateContent
           data={this.getReadContet()}
           onSubmit={function (_state) {
-            //배열  복사
+            //배열 복사
             var _content = Array.from(this.state.contents);
 
             var i = 0;
