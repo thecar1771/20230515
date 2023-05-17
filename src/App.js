@@ -90,8 +90,6 @@ class App extends Component {
           }.bind(this)}
         />
       );
-    } else if (this.state.mode === "delete") {
-      alert(this.state.selected_content_id);
     }
 
     return _article;
