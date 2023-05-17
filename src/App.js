@@ -11,7 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mode: "read",
+      mode: "welcome",
       selected_content_id: 2,
       subject: { title: "WEB", sub: "World Wide Web" },
       welcome: { title: "welcome", desc: "Hello, React!" },
@@ -59,6 +59,8 @@ class App extends Component {
 
             this.setState({
               contents: _newContents,
+              mode: "read",
+              selected_content_id: _newContents[this.state.contents.length].id,
             });
           }.bind(this)}
         />
@@ -73,10 +75,9 @@ class App extends Component {
 
             var i = 0;
             while (i < _content.length) {
-              var data = _content[i];
-              if (data.id === _state.id) {
-                data.title = _state.title;
-                data.desc = _state.desc;
+              if (_content[i].id === _state.id) {
+                _content[i].title = _state.title;
+                _content[i].desc = _state.desc;
                 break;
               }
               ++i;
@@ -84,11 +85,15 @@ class App extends Component {
 
             this.setState({
               contents: _content,
+              mode: "read",
             });
           }.bind(this)}
         />
       );
+    } else if (this.state.mode === "delete") {
+      alert(this.state.selected_content_id);
     }
+
     return _article;
   }
 
@@ -115,9 +120,28 @@ class App extends Component {
         />
         <Control
           onChangeMode={function (mode) {
-            this.setState({
-              mode: mode,
-            });
+            if (mode === "delete") {
+              if (window.confirm("real?")) {
+                var _contents = Array.from(this.state.contents);
+                var i = 0;
+                while (i < _contents.length) {
+                  if (_contents[i].id === this.state.selected_content_id) {
+                    _contents.splice(i, 1);
+                    break;
+                  }
+                  ++i;
+                }
+
+                this.setState({
+                  mode: "welcome",
+                  contents: _contents,
+                });
+              }
+            } else {
+              this.setState({
+                mode: mode,
+              });
+            }
           }.bind(this)}
         />
         {/* <ReadContent title={_title} desc={_desc} /> */}
